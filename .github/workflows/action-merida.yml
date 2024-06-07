@@ -82,7 +82,7 @@ jobs:
         run: |
           git fetch
           git pull
-          
+
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde Empresas Inglesas"
@@ -104,8 +104,10 @@ jobs:
         run: |
           echo "tabla desde Empreses Japonesas"
           cat companies_japan.csv
+          echo
           echo "tabla desde Empresas Chinas"
           cat companies_china.csv
+          echo
           echo "tabla desde Empresas Australianas"
           cat companies_australia.csv
 
@@ -125,5 +127,7 @@ jobs:
         run: |
           echo "tabla desde Empresas Argentina"
           cat companies_argentina.csv
+          echo
           echo "tabla desde Empresas Chinas"
           cat companies_mexico.csv
+          
