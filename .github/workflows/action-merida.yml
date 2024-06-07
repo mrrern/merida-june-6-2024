@@ -21,7 +21,7 @@ jobs:
           python-version: '3.x'
 
       - name: descargar data
-       run: |
+        run: |
          curl  -sL "https://companiesmarketcap.com/telecommunication/largest-telecommunication-companies-by-market-cap/?download=csv" -o comunicate.csv
          if [! -s comunicate.csv]; then
          echo "Downloaded CSV file is empty"
