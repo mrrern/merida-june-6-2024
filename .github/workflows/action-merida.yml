@@ -35,7 +35,9 @@ jobs:
           grep -i France comunicate.csv  > companies_france.csv
           grep -i Japan comunicate.csv > companies_japan.csv
           grep -i China comunicate.csv > companies_china.csv
+          grep -i Australia comunicate.csv > companies_australia.csv
           grep -i Argentina comunicate.csv > companies_argentina.csv
+          grep -i Mexico comunicate.csv > companies_mexico.csv
 
       - name: Commit results
         if: always()
@@ -45,7 +47,7 @@ jobs:
           git diff --quiet || git stash
           git pull --rebase origin main
           git stash list | grep "stash@{0}" && git stash apply
-          git add .
+          git add companies*csv
           git diff --cached --exit-code || git commit -m "tabla actualizada" --allow-empty
           git push --force-with-lease origin HEAD:main
  
@@ -73,10 +75,10 @@ jobs:
 
       - name: imprimir tabla bruta y neta
         run: |
-          echo "tabla desde Empreses Inglesas"
+          echo "tabla desde Empresas Inglesas"
           cat companies_united_kingdom.csv
 
-  viendo_jp: # nombre del job
+  viendo_asian: # nombre del job
     needs: analizando_datos # job(s) de los que depende
     runs-on: ubuntu-latest # sistema operativo
     steps:
@@ -85,6 +87,23 @@ jobs:
 
       - name: imprimir tabla bruta y neta
         run: |
-          echo "tabla desde Empreses Inglesas"
+          echo "tabla desde Empreses Japonesas"
           cat companies_japan.csv
+          echo "tabla desde Empresas Chinas"
+          cat companies_china.csv
+          echo "tabla desde Empresas Australianas"
+          cat companies_australia.csv
 
+  viendo_latam: # nombre del job
+    needs: analizando_datos # job(s) de los que depende
+    runs-on: ubuntu-latest # sistema operativo
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: imprimir tabla bruta y neta
+        run: |
+          echo "tabla desde Empresas Argentina"
+          cat companies_argentina.csv
+          echo "tabla desde Empresas Chinas"
+          cat companies_mexico.csv
