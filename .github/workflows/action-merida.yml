@@ -34,7 +34,7 @@ jobs:
           grep -i Kingdom comunicate.csv  > companies_united_kingdom.csv
           grep -i France comunicate.csv  > companies_france.csv
           grep -i Japan comunicate.csv > companies_japan.csv
-          grep -i China comunicate.csv > companies_japan.csv
+          grep -i China comunicate.csv > companies_china.csv
           grep -i Argentina comunicate.csv > companies_argentina.csv
 
       - name: Commit results
@@ -75,4 +75,16 @@ jobs:
         run: |
           echo "tabla desde Empreses Inglesas"
           cat companies_united_kingdom.csv
+
+  viendo_jp: # nombre del job
+    needs: analizando_datos # job(s) de los que depende
+    runs-on: ubuntu-latest # sistema operativo
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: imprimir tabla bruta y neta
+        run: |
+          echo "tabla desde Empreses Inglesas"
+          cat companies_japan.csv
 
