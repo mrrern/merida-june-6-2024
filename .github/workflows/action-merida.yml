@@ -58,6 +58,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: update the repo in output file
+        run: |
+          git fetch
+          git pull
+
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde Empresas Francesas"
@@ -77,6 +82,7 @@ jobs:
         run: |
           git fetch
           git pull
+          
       - name: imprimir tabla bruta y neta
         run: |
           echo "tabla desde Empresas Inglesas"
@@ -88,6 +94,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: update the repo in output file
+        run: |
+          git fetch
+          git pull
 
       - name: imprimir tabla bruta y neta
         run: |
@@ -104,6 +115,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: update the repo in output file
+        run: |
+          git fetch
+          git pull
 
       - name: imprimir tabla bruta y neta
         run: |
