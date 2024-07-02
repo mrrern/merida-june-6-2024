@@ -16,8 +16,9 @@ jobs:
 
       - name: descargar data
         run: |
-          curl "https://bcv.org.ve" | grep -10 "USD" | grep "000" | sed 's|strong>|\n|g'  | grep "</" | grep -v div | sed 's|</|VES|g'
-          curl "https://bcv.org.ve" | grep -10 "USD" | grep "000" | sed 's|strong>|\n|g'  | grep "</" | grep -v div | sed 's|</|VES|g' > price-now.csv
+          FECHA=$(date +"%Y-%m-%d")
+          PRECIO=$(curl -s "https://bcv.org.ve" | grep -10 "USD" | grep "000" | sed 's|strong>|\n|g'  | grep "</" | grep -v div | sed 's|</|VES|g')
+          echo "$FECHA,$PRECIO" > price-now.csv
           if [ ! -s price-now.csv ]; then
             echo "Downloaded CSV file is empty"
             exit 1
@@ -25,7 +26,7 @@ jobs:
 
       - name: crear tabla cumulativa
         run: |
-          cat  price-now.csv >> prices-USD.csv
+          cat price-now.csv >> prices-USD.csv
 
       - name: Commit results
         if: always()
@@ -38,4 +39,3 @@ jobs:
           git add prices-USD.csv
           git diff --cached --exit-code || git commit -m "tablas actualizada" --allow-empty
           git push --force-with-lease origin HEAD:main
- 
