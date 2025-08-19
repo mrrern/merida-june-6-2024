@@ -1,6 +1,5 @@
 name: filtro por paises
-
-
+on:
 jobs:
   analizando_datos:
     permissions:

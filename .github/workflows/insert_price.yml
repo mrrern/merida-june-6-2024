@@ -1,5 +1,4 @@
 name: Fetch USD price
-
 on:
   schedule:
     - cron: '00 12 * * *' # Runs every day at 12:00 UTC (8:00 VET)
