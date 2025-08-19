@@ -1,7 +1,7 @@
 name: USD Daily
 on:
   schedule:
-    - cron: '00 22 * * *' # Runs every day at 00:00 UTC
+    - cron: '00 12 * * *' # Runs every day at 12:00 UTC (8:00 VET)
   workflow_dispatch:  # Allows manual triggering
 
 jobs:
@@ -39,3 +39,17 @@ jobs:
           git add prices-USD.csv
           git diff --cached --exit-code || git commit -m "tablas actualizada" --allow-empty
           git push --force-with-lease origin HEAD:main
+
+      - name: Insertar Supabase
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          PRECIO: ${{ env.PRECIO }}
+          FECHA: ${{ env.FECHA }}
+        run: |
+          curl -s "${SUPABASE_URL}/rest/v1/coin" \
+          -H "apikey: ${SUPABASE_KEY}" \
+          -H "Authorization: Bearer ${SUPABASE_KEY}" \
+          -H "Content-Type: application/json" \
+          -d "{\"name\":\"USD\",\"value\":${PRECIO},\"updated_at\":${FECHA}}" || exit 1
+
