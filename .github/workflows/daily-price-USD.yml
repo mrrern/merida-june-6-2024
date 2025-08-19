@@ -17,7 +17,7 @@ jobs:
       - name: descargar data
         run: |
           FECHA=$(date +"%Y-%m-%d")
-          PRECIO=$(curl -s "https://bcv.org.ve" | grep -10 "USD" | grep "000" | sed 's|strong>|\n|g'  | grep "</" | grep -v div | sed 's|</|VES|g')
+          PRECIO=$(curl -k -s "https://bcv.org.ve" | grep -10 "USD" | grep "000" | sed 's|strong>|\n|g'  | grep "</" | grep -v div | sed 's|</|VES|g')
           echo "$FECHA,$PRECIO" > price-now.csv
           if [ ! -s price-now.csv ]; then
             echo "Downloaded CSV file is empty"
